@@ -45,8 +45,25 @@ guard let encodedText = searchText.addingPercentEncoding(
 ### Q2
 
 **質問：**
+let urlString = "https://itunes.apple.com/search?term=\(encodedText)&media=music&country=jp&limit=25"
+        guard let url = URL(string: urlString) else { return }
+        isLoading = true
+
+これはAPI通信するURLのしてい及びtureならばこの後の処理を行う認識でいいですか?
 
 **AIの回答の要点：**
+前半の「API通信するURLの指定」は正解。
+後半の「trueならばこの後の処理を行う」という認識は少しだけ違う。
+
+正確には、**「正しいURLが作れたら先に進み、これから通信を始めるので『ロード中』のスイッチをオン（true）にする」**
+
+コードの詳しい解説
+
+|let urlString = "..."|guard let url = URL(string: urlString) else { return }|isLoading = true|
+|--|--|--|
+iTunes APIのURLを「文字列（ただのテキスト）」として作成。検索キーワード（encodedText）、音楽（media=music）、日本（country=jp）、最大25件（limit=25）という条件を指定しています。
+|実は、「条件をチェックして、ダメなら処理を中断する」という役割を持っているのはこの行です。先ほどの文字列を、プログラムが通信で使える正式な「URL型」のデータに変換しています。もし何かの理由で正しいURLにならなかった場合（変換に失敗した場合）は、else の中にある return を実行して、この処理自体を終了させます（これより下のコードは実行されません）。無事にURLが作れた場合のみ、次に進みます。|これは「もしtrueなら進む」という条件（if文など）ではなく、変数 isLoading に true を代入する（書き込む）処理です。
+「これから通信を始めるので、現在ローディング中（読み込み中）ですよ」という状態に変更しています。これを書くことで、スマートフォンの画面に「くるくる回る読み込みアニメーション」を表示させたり、ボタンを一時的に押せなくしたりすることができます。
 
 **自分の理解：**
 

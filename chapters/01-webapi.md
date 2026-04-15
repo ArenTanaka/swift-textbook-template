@@ -1,24 +1,171 @@
 # 第1章：WebAPIの基本
 
-> 執筆者：（氏名）
-> 最終更新：YYYY-MM-DD
+> 執筆者：田中 吾錬
+> 最終更新：20260415
 
 ## この章で学ぶこと
 
-（この章で扱うトピックの概要を2〜3行で書く。自分の言葉で。）
-
-例：この章では、インターネット上のサービス（API）からデータを取得して、アプリ内に表示する方法を学ぶ。具体的にはiTunes Search APIを使って音楽を検索し、その結果をリスト表示するアプリを題材にする。
+本章は、API（WebAPI）、を用いたアプリの復習を行う。今回はiTunes Search API を用いて音楽の検索、ジャケット写真及び、歌手名をリスト形式で表示するアプリ。
 
 ## 模範コードの全体像
 
-（教員から配布された模範コードをここに貼り付ける）
-
 ```swift
-// ここに模範コード全体を貼る
+import SwiftUI
+
+// MARK: - データモデル
+
+struct SearchResponse: Codable {
+    let results: [Song]
+}
+
+struct Song: Codable, Identifiable {
+    let trackId: Int
+    let trackName: String
+    let artistName: String
+    let artworkUrl100: String
+    let previewUrl: String?
+
+    var id: Int { trackId }
+}
+
+// MARK: - メインビュー
+
+struct ContentView: View {
+    @State private var songs: [Song] = []
+    @State private var searchText: String = ""
+    @State private var isLoading: Bool = false
+
+    var body: some View {
+        NavigationStack {
+            VStack {
+                // 検索バー
+                HStack {
+                    TextField("アーティスト名を入力", text: $searchText)
+                        .textFieldStyle(.roundedBorder)
+
+                    Button("検索") {
+                        Task {
+                            await searchMusic()
+                        }
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .disabled(searchText.isEmpty)
+                }
+                .padding(.horizontal)
+
+                // 検索結果リスト
+                if isLoading {
+                    ProgressView("検索中...")
+                        .padding()
+                    Spacer()
+                } else if songs.isEmpty {
+                    ContentUnavailableView(
+                        "曲を検索してみよう",
+                        systemImage: "music.note",
+                        description: Text("アーティスト名を入力して検索ボタンを押してください")
+                    )
+                } else {
+                    List(songs) { song in
+                        SongRow(song: song)
+                    }
+                }
+            }
+            .navigationTitle("Music Search")
+        }
+    }
+
+    // MARK: - API通信
+
+    func searchMusic() async {
+        guard let encodedText = searchText.addingPercentEncoding(
+            withAllowedCharacters: .urlQueryAllowed
+        ) else { return }
+
+        let urlString = "https://itunes.apple.com/search?term=\(encodedText)&media=music&country=jp&limit=25"
+        // limitは検索結果の表示数
+
+        guard let url = URL(string: urlString) else { return }
+
+        isLoading = true
+
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let response = try JSONDecoder().decode(SearchResponse.self, from: data)
+            songs = response.results
+        } catch {
+            print("エラー: \(error.localizedDescription)")
+            songs = []
+        }
+
+        isLoading = false
+    }
+}
+
+// MARK: - 曲の行ビュー
+
+struct SongRow: View {
+    let song: Song
+
+    var body: some View {
+        HStack(spacing: 12) {
+            AsyncImage(url: URL(string: song.artworkUrl100)) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            } placeholder: {
+                Color.gray.opacity(0.3)
+            }
+            .frame(width: 60, height: 60)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(song.trackName)
+                    .font(.headline)
+                    .lineLimit(1)
+
+                Text(song.artistName)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .padding(.vertical, 4)
+    }
+}
+
+#Preview {
+    ContentView()
+}
+
 ```
 
 **このアプリは何をするものか：**
 
+TextField にテキストを挿入し、音楽を検索する。
+>
+<img width="120" height="260" alt="Simulator Screenshot - iPhone 17 - 2026-04-15 at 15 57 24" src="https://github.com/user-attachments/assets/7e04e3c0-f0e4-4b5d-8902-24d3799e6c7e" />
+
+>
+> 
+```swift
+let urlString = "https://itunes.apple.com/search?term=\(encodedText)&media=music&country=jp&limit=25"
+```
+と指定されているので最大25件まで表示される。
+この数字を変更すると表示数を変えることができる。
+```swift
+let urlString = "https://itunes.apple.com/search?term=\(encodedText)&media=music&country=jp&limit=1"
+```
+のように変更すると
+>
+<img width="120" height="260" alt="Simulator Screenshot - iPhone 17 - 2026-04-15 at 16 00 39" src="https://github.com/user-attachments/assets/95473cb2-0dba-45ac-bd70-aff27f2733cb" />
+
+のように1件のみの表示が行える。
+
+また、
+>
+<img width="120" height="260" alt="Simulator Screenshot - iPhone 17 - 2026-04-15 at 16 06 57" src="https://github.com/user-attachments/assets/ef73cc57-a613-4a61-80e7-21b1028683be" />
+
+アーティスト名でなく曲名での検索も可能である。
+>
 （アプリの動作を自分の言葉で説明する。スクリーンショットを貼ってもよい。）
 
 ## コードの詳細解説

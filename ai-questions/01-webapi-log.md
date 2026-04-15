@@ -9,6 +9,8 @@ Gemini
 ### Q1
 
 **質問：**
+>
+>
 guard let encodedText = searchText.addingPercentEncoding(  
 　　　　　　　　　withAllowedCharacters: .urlQueryAllowed  
         　　)  
@@ -16,6 +18,8 @@ guard let encodedText = searchText.addingPercentEncoding(
 は見つけたものを探すものですか??
 
 **AIの回答の要点：**
+>
+>
 これは「探す（検索する）」処理そのものではなく、**「インターネットで検索するための準備（テキストの変換）」**
 
 なぜこの処理が必要なのか？
@@ -26,6 +30,8 @@ guard let encodedText = searchText.addingPercentEncoding(
 そのため、インターネット上で安全にやり取りできる形式（% と英数字の組み合わせ）に翻訳してあげる必要がある。
 
 **コードの詳しい意味**
+>
+>
 それぞれの部分が何をしているのかの説明
 
 **searchText**検索したい元の言葉が入っている変数。
@@ -40,11 +46,16 @@ guard let encodedText = searchText.addingPercentEncoding(
 変換が成功したら、その安全になった文字を encodedText という新しい変数に入れて、あとの処理で使えるようにしています。
 >
 **自分の理解：**
-（回答を受けて自分がどう理解したか。納得できたか、さらに疑問が生まれたか）
+>
+>
+エラー制御である事がわかった。
+まt、そのままでは表示できない文字を変換する意図もあることが分かり、過去のアプリで「%」を使用したのを思い出した。
 
 ### Q2
 
 **質問：**
+>
+>
 let urlString = "https://itunes.apple.com/search?term=\(encodedText)&media=music&country=jp&limit=25"
         guard let url = URL(string: urlString) else { return }
         isLoading = true
@@ -52,12 +63,16 @@ let urlString = "https://itunes.apple.com/search?term=\(encodedText)&media=music
 これはAPI通信するURLのしてい及びtureならばこの後の処理を行う認識でいいですか?
 
 **AIの回答の要点：**
+>
+>
 前半の「API通信するURLの指定」は正解。
 後半の「trueならばこの後の処理を行う」という認識は少しだけ違う。
 
 正確には、**「正しいURLが作れたら先に進み、これから通信を始めるので『ロード中』のスイッチをオン（true）にする」**
 
 コードの詳しい解説
+>
+>
 |コード|解説|
 |--|--|
 |let urlString = "..."¥|iTunes APIのURLを「文字列（ただのテキスト）」として作成しています。検索キーワード（encodedText）、音楽（media=music）、日本（country=jp）、最大25件（limit=25）という条件を指定しています|

@@ -143,29 +143,34 @@ struct SongRow: View {
 
 TextField にテキストを挿入し、音楽を検索する。
 >
-<img width="120" height="260" alt="Simulator Screenshot - iPhone 17 - 2026-04-15 at 15 57 24" src="https://github.com/user-attachments/assets/7e04e3c0-f0e4-4b5d-8902-24d3799e6c7e" />
+<img width="240" height="520" alt="Simulator Screenshot - iPhone 17 - 2026-04-15 at 15 57 24" src="https://github.com/user-attachments/assets/7e04e3c0-f0e4-4b5d-8902-24d3799e6c7e" />
 
 >
 > 
 ```swift
 let urlString = "https://itunes.apple.com/search?term=\(encodedText)&media=music&country=jp&limit=25"
 ```
+にて
+```swift
+limit=25
+```
 と指定されているので最大25件まで表示される。
+
 この数字を変更すると表示数を変えることができる。
 ```swift
-let urlString = "https://itunes.apple.com/search?term=\(encodedText)&media=music&country=jp&limit=1"
+limit=1
 ```
 のように変更すると
 >
-<img width="120" height="260" alt="Simulator Screenshot - iPhone 17 - 2026-04-15 at 16 00 39" src="https://github.com/user-attachments/assets/95473cb2-0dba-45ac-bd70-aff27f2733cb" />
+<img width="240" height="520" alt="Simulator Screenshot - iPhone 17 - 2026-04-15 at 16 00 39" src="https://github.com/user-attachments/assets/95473cb2-0dba-45ac-bd70-aff27f2733cb" />
 
 のように1件のみの表示が行える。
 
-また、
+また、アーティスト名でなく曲名での検索も可能である。
 >
-<img width="120" height="260" alt="Simulator Screenshot - iPhone 17 - 2026-04-15 at 16 06 57" src="https://github.com/user-attachments/assets/ef73cc57-a613-4a61-80e7-21b1028683be" />
+<img width="240" height="520" alt="Simulator Screenshot - iPhone 17 - 2026-04-15 at 16 06 57" src="https://github.com/user-attachments/assets/ef73cc57-a613-4a61-80e7-21b1028683be" />
 
-アーティスト名でなく曲名での検索も可能である。
+
 >
 （アプリの動作を自分の言葉で説明する。スクリーンショットを貼ってもよい。）
 

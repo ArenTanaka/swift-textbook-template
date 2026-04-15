@@ -84,8 +84,50 @@ let urlString = "https://itunes.apple.com/search?term=\(encodedText)&media=music
 ### Q3
 
 **質問：**
+>
+>
+truct Song: Codable, Identifiable {
+let trackId: Int
+let trackName: String
+let artistName: String
+let artworkUrl100: String
+let previewUrl: String?
+
+var id: Int { trackId }
+}
+
+はいつもの関数?変数宣言ですがvar id:Int { trackId }はなんの宣言ですか？？
 
 **AIの回答の要点：**
+>
+>
+ここだけ let ではなく var で、しかも { } がついていて不思議に思いますよね。
+これは普通の変数（データを保存する箱）や関数とは少し違う、**「計算プロパティ（Computed Property）」**と呼ばれる宣言です。
+一言でいうと、「id と呼ばれたら、trackId の中身をそのまま渡すよ」という「別名（ショートカット）」を作っている処理になります。
+
+1. なぜ id という名前が必要なのか？（Identifiable のため）
+1行目を見ると、struct Song: Codable, Identifiable と書いてありますよね。
+この Identifiable（アイデンティファイアブル） というのは、SwiftUIでリスト（一覧画面）などを作るときに、「このデータは一つ一つ区別できるユニークなIDを持っていますよ」と保証するためのルールです。
+
+このルールを守るためには、絶対に id という名前の変数を持っていなければならないという決まりがあります。
+
+しかし、iTunes APIから送られてくる曲のIDのデータ名は trackId です。APIの都合上、名前を勝手に変えることはできません（Codable でうまく変換できなくなってしまいます）。
+
+2. 計算プロパティで「橋渡し」をしている
+「APIからは trackId という名前でデータを受け取りたい。でも、SwiftUIで便利に使うためには id という名前も持っていないといけない…」
+
+このジレンマを解決するのが var id: Int { trackId } です。
+
+これを書くことで、「新しい箱（変数）を作ってデータを二重に保存する」のではなく、**「song.id って聞かれたら、自動的に song.trackId の中身を答えてね」**という橋渡しをしています。
+
+💡 構文の補足
+実はこの書き方は、少し省略された書き方です。本来はこう書きます。
+
+Swift
+var id: Int {
+    return trackId
+}
+Swiftでは「中身が1行だけで、ただ値を返す（return）だけの場合、return という文字を省略しても良い」というルールがあるため、ぎゅっと縮まって var id: Int { trackId } と書かれています。
 
 **自分の理解：**
 

@@ -196,7 +196,29 @@ limit=1
 ### API通信の処理
 
 ```swift
-// 該当部分のコードを抜粋して貼る
+func searchMusic() async {
+        guard let encodedText = searchText.addingPercentEncoding(
+            withAllowedCharacters: .urlQueryAllowed
+        ) else { return }
+
+        let urlString = "https://itunes.apple.com/search?term=\(encodedText)&media=music&country=jp&limit=25"
+        // limitは検索結果の表示数
+
+        guard let url = URL(string: urlString) else { return }
+
+        isLoading = true
+
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let response = try JSONDecoder().decode(SearchResponse.self, from: data)
+            songs = response.results
+        } catch {
+            print("エラー: \(error.localizedDescription)")
+            songs = []
+        }
+
+        isLoading = false
+    }
 ```
 
 **何をしているか：**
@@ -210,7 +232,34 @@ limit=1
 ### ビューの構成
 
 ```swift
-// 該当部分のコードを抜粋して貼る
+struct SongRow: View {
+    let song: Song
+
+    var body: some View {
+        HStack(spacing: 12) {
+            AsyncImage(url: URL(string: song.artworkUrl100)) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            } placeholder: {
+                Color.gray.opacity(0.3)
+            }
+            .frame(width: 60, height: 60)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(song.trackName)
+                    .font(.headline)
+                    .lineLimit(1)
+
+                Text(song.artistName)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .padding(.vertical, 4)
+    }
+}
 ```
 
 **何をしているか：**

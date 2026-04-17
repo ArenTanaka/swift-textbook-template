@@ -252,6 +252,8 @@ AsyncImage(url: URL(string: song.artworkUrl100)) { image in
 認識の問題はない。
 
 以下で残るブロックは一言で言うならアートワーク（ジャケ写）をネットから拾い綺麗に表示する処置
+>
+>
 ①
 ```swift
 AsyncImage(url: URL(string: song.artworkUrl100))

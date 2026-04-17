@@ -79,6 +79,9 @@ let urlString = "https://itunes.apple.com/search?term=\(encodedText)&media=music
 |isLoading = true|これは「もしtrueなら進む」という条件（if文など）ではなく、変数 isLoading に true を代入する（書き込む）処理です。「これから通信を始めるので、現在ローディング中（読み込み中）ですよ」という状態に変更しています。これを書くことで、スマートフォンの画面に「くるくる回る読み込みアニメーション」を表示させたり、ボタンを一時的に押せなくしたりすることができます。|
 
 **自分の理解：**
+数の指定、エラーの制御、アニメーションの表示等でユーザの使いやすさを考えていて
+良い設計とは何かを少し考えさられた
+
 
 ### Q3
 
@@ -122,6 +125,8 @@ var id: Int {
 Swiftでは「中身が1行だけで、ただ値を返す（return）だけの場合、return という文字を省略しても良い」というルールがあるため、ぎゅっと縮まって var id: Int { trackId } と書かれています。
 
 **自分の理解：**
+>
+>
 言われてみれば基本の宣言や過去の制作で
 命名の仕方の強制のような事をしたようなことをしていた気がする。
 
@@ -185,17 +190,104 @@ struct Song: Codable {
 
 
 **自分の理解：**
+>
+>
 do,catchの時点で聞くまでもなかったが、
 再確認も兼ねて聞くことができてよかった。
 
 
-### Q
+### Q5
 
 **質問**
+```swift
+struct SongRow: View {
+    let song: Song
+
+    var body: some View {
+        HStack(spacing: 12) {
+            AsyncImage(url: URL(string: song.artworkUrl100)) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            } placeholder: {
+                Color.gray.opacity(0.3)
+            }
+            .frame(width: 60, height: 60)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(song.trackName)
+                    .font(.headline)
+                    .lineLimit(1)
+
+                Text(song.artistName)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .padding(.vertical, 4)
+    }
+```
+
+は
+さっき持ってきたJSONを変換したものの出力だよね??
+
+**song.trackNameとsong.artistName**の部分は曲名の表示、歌手名の表示は分かった
+
+```swift
+AsyncImage(url: URL(string: song.artworkUrl100)) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            } placeholder: {
+                Color.gray.opacity(0.3)
+            }
+            .frame(width: 60, height: 60)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+```
+がいまいち掴めない出力してるんだろうけどどうしてどうなってるか
+わからん
 
 **AIの回答の要点：**
+認識の問題はない。
 
-**自分の理解：**
+以下で残るブロックは一言で言うならアートワーク（ジャケ写）をネットから拾い綺麗に表示する処置
+①
+```swift
+AsyncImage(url: URL(string: song.artworkUrl100))
+```
+はJSONの画像URLをネットから拾う依頼
+
+②
+```swift
+} placeholder: {
+    Color.gray.opacity(0.3)
+}
+```
+ネットからのDLの待機時間の間、表示する四角
+
+③
+```swift
+{ image in
+    image
+        .resizable()
+        .aspectRatio(contentMode: .fill)
+```
+画像が届いた後にサイズを変えて枠いっぱいに広げる。
+
+④
+```swift
+.frame(width: 60, height: 60)
+.clipShape(RoundedRectangle(cornerRadius: 8))
+```
+アルバムを最終的に60*60の正方形にし、角丸で表示する指示
+**※アルバムの時のグレーの四角もここに起因する。**
+
+**自分の理解**
+>
+>
+前後から考えれば分かるものであってので想像力不足であると思った。
+.resizable()がある時点で気付けなかった事を悔やむ
 
 ### Q
 

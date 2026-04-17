@@ -9,11 +9,11 @@ Gemini
 ### Q1
 
 **質問：**
->
->
+```swift
 guard let encodedText = searchText.addingPercentEncoding(  
 　　　　　　　　　withAllowedCharacters: .urlQueryAllowed  
         　　)  
+```
 
 は見つけたものを探すものですか??
 
@@ -54,12 +54,11 @@ guard let encodedText = searchText.addingPercentEncoding(
 ### Q2
 
 **質問：**
->
->
+```swift
 let urlString = "https://itunes.apple.com/search?term=\(encodedText)&media=music&country=jp&limit=25"
         guard let url = URL(string: urlString) else { return }
         isLoading = true
-
+```
 これはAPI通信するURLのしてい及びtureならばこの後の処理を行う認識でいいですか?
 
 **AIの回答の要点：**
@@ -84,8 +83,7 @@ let urlString = "https://itunes.apple.com/search?term=\(encodedText)&media=music
 ### Q3
 
 **質問：**
->
->
+```swift
 truct Song: Codable, Identifiable {
 let trackId: Int
 let trackName: String
@@ -95,7 +93,7 @@ let previewUrl: String?
 
 var id: Int { trackId }
 }
-
+```
 はいつもの関数?変数宣言ですがvar id:Int { trackId }はなんの宣言ですか？？
 
 **AIの回答の要点：**
@@ -116,15 +114,96 @@ var id: Int { trackId }
 💡 構文の補足
 実はこの書き方は、少し省略された書き方です。本来はこう書きます。
 
-Swift
+```swift
 var id: Int {
     return trackId
 }
+```
 Swiftでは「中身が1行だけで、ただ値を返す（return）だけの場合、return という文字を省略しても良い」というルールがあるため、ぎゅっと縮まって var id: Int { trackId } と書かれています。
 
 **自分の理解：**
 言われてみれば基本の宣言や過去の制作で
 命名の仕方の強制のような事をしたようなことをしていた気がする。
+
+
+### Q4
+
+**質問**
+
+```swift
+do {
+        let (data, _) = try await URLSession.shared.data(from: url)
+
+        let response = try JSONDecoder().decode(SearchResponse.self, from: data)
+
+        songs = response.results
+        
+        } catch {
+        
+        print("エラー: \(error.localizedDescription)")
+
+        songs = []
+
+        }
+```
+
+
+はencodされたTextを調べてもらい帰ってきたJSONを変換して表示させようとしている。
+
+表示できない場合はsongsを表示しなくしている？初期状態?にしているという認識であっていますか
+
+**AIの回答の要点：**
+
+これは「成功した時」と「失敗した時」でルートを分ける処理（do-catch）です。
+
+do の中（成功ルート）：
+データを取りに行ってJSONを変換し、画面に曲が表示
+
+catch の中（失敗ルート）：
+通信エラーなどが起きたら、songs = [] にして リストを「空っぽ（初期状態）」に戻す
+
+JSONの変換の仕方
+①
+```swift
+{
+  "trackId": 1234567,
+  "trackName": "Lemon",
+  "artistName": "米津玄師"
+}
+```
+②
+```swift
+struct Song: Codable {
+    let trackId: Int
+    let trackName: String
+    let artistName: String
+}
+```
+**JSONDecoder**は①と②を比べて、共通の名前の変数を探し、中身にいれる。
+
+変数名が一致しない際にエラーが起こる
+
+
+**自分の理解：**
+do,catchの時点で聞くまでもなかったが、
+再確認も兼ねて聞くことができてよかった。
+
+
+### Q
+
+**質問**
+
+**AIの回答の要点：**
+
+**自分の理解：**
+
+### Q
+
+**質問**
+
+**AIの回答の要点：**
+
+**自分の理解：**
 
 （質問は何個でも追加してください。多ければ多いほど良いです。）
 

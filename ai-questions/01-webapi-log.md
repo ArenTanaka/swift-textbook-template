@@ -249,6 +249,8 @@ AsyncImage(url: URL(string: song.artworkUrl100)) { image in
 わからん
 
 **AIの回答の要点：**
+>
+>
 認識の問題はない。
 
 以下で残るブロックは一言で言うならアートワーク（ジャケ写）をネットから拾い綺麗に表示する処置

@@ -179,17 +179,42 @@ limit=1
 ### データモデル（Codable構造体）
 
 ```swift
-// 該当部分のコードを抜粋して貼る
+struct SearchResponse: Codable {
+    let results: [Song]
+}
+
+struct Song: Codable, Identifiable {
+    let trackId: Int
+    let trackName: String
+    let artistName: String
+    let artworkUrl100: String
+    let previewUrl: String?
+
+    var id: Int { trackId }
+}
 ```
 
 **何をしているか：**
-（この部分が果たしている役割を説明する）
+>宣言を行っている。
+>これから使うものを予め伝えている。
 
 **なぜこう書くのか：**
-（別の書き方ではなく、この書き方が選ばれている理由を説明する）
+>データをひとまとめの構造として扱うため
 
 **もしこう書かなかったら：**
-（この部分を省略したり変えたりすると何が起きるか。実際に試した結果があればここに書く）
+>
+> 各配列を組む必要が出てくる
+> 
+```swift
+// バラバラに宣言した場合
+var trackNames = ["Lemon", "マリーゴールド", "怪獣の花唄"]
+var artistNames = ["米津玄師", "あいみょん", "Vaundy"]
+```
+>万が一、どちらかの一つ目が消えた場合明らかなずれが生じる。
+>例：Lemon,あいみょん のように一番最初のデータの消えてしまった場合、整合性がなくなる。
+>
+
+
 
 ---
 

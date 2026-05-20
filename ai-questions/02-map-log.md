@@ -91,12 +91,58 @@ longitude（経度）: 東経・西経（左右のどこか）
 
 **質問：**
 
+```Swift
+ Button {
+ if selectedCategories.contains(category) {
+ selectedCategories.remove(category)
+      } else {
+         selectedCategories.insert(category)
+   }
+    } label: {
+   HStack(spacing: 4) {
+   Image(systemName: category.iconName)
+   Text(category.rawValue)
+}
+.font(.caption)
+.padding(.horizontal, 10)
+.padding(.vertical, 6)
+.background(
+   selectedCategories.contains(category)
+   ? category.color.opacity(0.2)
+   : Color.gray.opacity(0.1)
+)
+.foregroundStyle(
+selectedCategories.contains(category)
+? category.color
+: .gray
+)
+.clipShape(Capsule())
+}
+```
+
+は押されているときに指定の色がついて、
+押されていない時はグレーになるでいいですか？
+
 **AIの回答の要点：**
 
+これはよくある「フィルターボタン」や「タグ」の動きで、まさにあなたが言った通り、
+「選択されている（ONの）時はそのカテゴリーの専用色、選択されていない（OFFの）時はグレー」という切り替えを行っています。
+
+ボタンを押すたびに、上の if-else という部分が働いて、
+
+まだ無いなら：追加してONにする！
+もうあるなら：削除してOFFにする！
+と、カチカチ切り替わる仕様になっています。
+
 **自分の理解：**
+
+ボタンのオンオフを可視化してユーザーの満足度をあげる良いものだと思った。
 
 （質問は何個でも追加してください。多ければ多いほど良いです。）
 
 ## 今日の質問を振り返って
+
+座標の質問はとても良かったと思う。
+マップ系のアプリで高さが必要なアイディアを考えてみようと思った。
 
 （どんな質問が良い質問だったか。生成AIの回答で間違いや不正確な部分はあったか。次回はどんな質問をしてみたいか。）

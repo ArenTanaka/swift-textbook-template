@@ -236,14 +236,55 @@ struct LandmarkCard: View {
 ### データモデル（ランドマーク構造体）
 
 ```swift
-// 該当部分のコードを抜粋して貼る
+// MARK: - データモデル
+
+struct Landmark: Identifiable, Hashable {
+    let id = UUID()
+    let name: String
+    let description: String
+    let coordinate: CLLocationCoordinate2D
+    let category: Category
+
+    static func == (lhs: Landmark, rhs: Landmark) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
+    enum Category: String, CaseIterable {
+        case temple = "寺社"
+        case tower = "タワー"
+        case park = "公園"
+
+        var iconName: String {
+            switch self {
+            case .temple: return "building.columns"
+            case .tower: return "antenna.radiowaves.left.and.right" //なんか気になる
+            case .park: return "leaf"
+            }
+        }
+
+        var color: Color {
+            switch self {
+            case .temple: return .red
+            case .tower: return .blue
+            case .park: return .green
+            }
+        }
+    }
+}
+
 ```
 
 **何をしているか：**
-（この部分が果たしている役割を説明する）
+寺社,タワー,公園をの3種類にカテゴライズしている。
 
 **なぜこう書くのか：**
 （別の書き方ではなく、この書き方が選ばれている理由を説明する）
+
+
 
 **もしこう書かなかったら：**
 （この部分を省略したり変えたりすると何が起きるか。実際に試した結果があればここに書く）

@@ -10,8 +10,6 @@
 
 ## 模範コードの全体像
 
-（教員から配布された模範コードをここに貼り付ける）
-
 ```swift
 // ============================================
 // 第2章（基本）：MapKitで地図を表示するアプリ
@@ -228,8 +226,22 @@ struct LandmarkCard: View {
 ```
 
 **このアプリは何をするものか：**
+>
+<img width="120" height="260" alt="Simulator Screenshot - iPhone 17 Pro - 2026-05-20 at 16 34 08" src="https://github.com/user-attachments/assets/9a8d2f05-1713-4986-af76-e07887a844c5" />
 
-（アプリの動作を自分の言葉で説明する。スクリーンショットを貼ってもよい。）
+<img width="120" height="260" alt="Simulator Screenshot - iPhone 17 Pro - 2026-05-20 at 16 34 21" src="https://github.com/user-attachments/assets/f36599a2-f773-4417-a761-c8c8ecf5bd8a" />
+
+<img width="120" height="260" alt="Simulator Screenshot - iPhone 17 Pro - 2026-05-20 at 16 34 28" src="https://github.com/user-attachments/assets/898173ab-b776-4316-9281-88f0f1860a14" />
+
+立体でマップをみたり、カテゴライズされた場所を選択すると解説を見ることができる。
+
+また、ボタンのオンオフで、カテゴライズして登録されている場所の表示の切り替えが行える
+>
+>
+<img width="120" height="260" alt="Simulator Screenshot - iPhone 17 Pro - 2026-05-22 at 13 55 21" src="https://github.com/user-attachments/assets/feae6f49-b8bb-43a4-a4ce-473adf4369f8" />
+
+<img width="120" height="260" alt="Simulator Screenshot - iPhone 17 Pro - 2026-05-22 at 13 55 24" src="https://github.com/user-attachments/assets/9e2d0288-3e05-4c11-9073-09239cdee7d4" />
+
 
 ## コードの詳細解説
 

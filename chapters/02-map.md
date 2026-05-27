@@ -382,10 +382,45 @@ categoryはCategory型なので、 <ins>.temple</ins>のように省略して書
 ### フィルター機能
 
 ```swift
-// 該当部分のコードを抜粋して貼る
+var filteredLandmarks: [Landmark] {
+        Landmark.sampleData.filter { selectedCategories.contains($0.category) }
+    }
+
+    var body: some View {
+        ZStack(alignment: .bottom) {
+            // 地図
+            Map(position: $cameraPosition, selection: $selectedLandmark) {
+                ForEach(filteredLandmarks) { landmark in
+                    Marker(
+                        landmark.name,
+                        systemImage: landmark.category.iconName,
+                        coordinate: landmark.coordinate
+                    )
+                    .tint(landmark.category.color)
+                    .tag(landmark) 
+                }
+            }
+            .mapStyle(.standard(elevation: .realistic))
+
+            // カテゴリフィルター
+            VStack(spacing: 8) {
+                if let landmark = selectedLandmark {
+                    LandmarkCard(landmark: landmark)
+                        .transition(.move(edge: .bottom))
+                }
+
+                CategoryFilter(selectedCategories: $selectedCategories)
+            }
+            .padding()
+        }
+        .onMapCameraChange { context in
+        }
+    }
 ```
 
 **何をしているか：**
+
+ランドマークをフィルタリングしている。
 
 **なぜこう書くのか：**
 

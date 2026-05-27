@@ -370,61 +370,88 @@ extension Landmark {
 
 **なぜこう書くのか：**
 
-categoryはCategory型なので、 <ins>.temple</ins>のように省略して書くことができる
+categoryはCategory型なので、
+```swift
+category: .temple
+```
+のように省略して書くことができる
 
 **もしこう書かなかったら：**
 
 省略せずに書く場合は、次のように書く。
-<ins>category: Category.temple</ins>
+
+```swift
+category: Category.temple
+```
 
 ---
 
 ### フィルター機能
 
 ```swift
-var filteredLandmarks: [Landmark] {
-        Landmark.sampleData.filter { selectedCategories.contains($0.category) }
-    }
+// MARK: - カテゴリフィルター
+
+struct CategoryFilter: View {
+    @Binding var selectedCategories: Set<Landmark.Category>
 
     var body: some View {
-        ZStack(alignment: .bottom) {
-            // 地図
-            Map(position: $cameraPosition, selection: $selectedLandmark) {
-                ForEach(filteredLandmarks) { landmark in
-                    Marker(
-                        landmark.name,
-                        systemImage: landmark.category.iconName,
-                        coordinate: landmark.coordinate
+        HStack(spacing: 8) {
+            ForEach(Landmark.Category.allCases, id: \.self) { category in
+                Button {
+                    if selectedCategories.contains(category) {
+                        selectedCategories.remove(category)
+                    } else {
+                        selectedCategories.insert(category)
+                    }
+                } label: {
+                    HStack(spacing: 4) {
+                        Image(systemName: category.iconName)
+                        Text(category.rawValue)
+                    }
+                    .font(.caption)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 6)
+                    .background(
+                        selectedCategories.contains(category)
+                            ? category.color.opacity(0.2)
+                            : Color.gray.opacity(0.1)
                     )
-                    .tint(landmark.category.color)
-                    .tag(landmark) 
+                    .foregroundStyle(
+                        selectedCategories.contains(category)
+                            ? category.color
+                            : .gray
+                    )
+                    .clipShape(Capsule())
                 }
             }
-            .mapStyle(.standard(elevation: .realistic))
-
-            // カテゴリフィルター
-            VStack(spacing: 8) {
-                if let landmark = selectedLandmark {
-                    LandmarkCard(landmark: landmark)
-                        .transition(.move(edge: .bottom))
-                }
-
-                CategoryFilter(selectedCategories: $selectedCategories)
-            }
-            .padding()
         }
-        .onMapCameraChange { context in
-        }
+        .padding(8)
+        .background(.ultraThinMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 16))
     }
+}
 ```
 
 **何をしているか：**
 
 ランドマークをフィルタリングしている。
+また、ボタンで該当のカテゴリの表示非表示を選択できる。
+
+if-elseで無いならONあるならOFFと切り替わる仕様。
 
 **なぜこう書くのか：**
 
+「<ins>ボタンも、リストも、</ins>個別にバラバラに動かすのはやめる。
+1つの<ins>『選択リストの箱』</ins>を用意して、全員そこに合わせて自動で動くする」
+
 **もしこう書かなかったら：**
+
+【寺院ボタンが押された時の手書き命令の例】
+1. 自分の色をグレーからオレンジに変える
+2. 観光地リストのデータを全部スキャンする
+3. 「浅草寺」は寺院だから表示したままにする
+4. 「東京タワー」は寺院じゃないから非表示にする
+5. （もう一度押されたら、これと逆の処理を書く）
 
 ---
 

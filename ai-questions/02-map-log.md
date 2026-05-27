@@ -140,6 +140,47 @@ selectedCategories.contains(category)
 
 （質問は何個でも追加してください。多ければ多いほど良いです。）
 
+### Q4
+(ここからChat GPT)
+
+```swift
+/ MARK: - サンプルデータ
+
+extension Landmark {
+    static let sampleData: [Landmark] = [
+        Landmark(
+            name: "浅草寺",
+            description: "東京都内最古の寺院。雷門が有名。",
+            coordinate: CLLocationCoordinate2D(latitude: 35.7148, longitude: 139.7967),
+            category: .temple
+        ),
+    ]
+}
+
+はなぜこう書くのですか？
+個人的には既に設定されているカテゴリであるからだと思うのですが
+既にカテゴリで定めている場合これ以外の表現はないのですか??
+```
+**AIの回答の要点：**
+```swift
+category: .temple
+```
+
+これは Landmark の category がすでに「Category型」だと決まっているから、省略して書ける という意味です。
+
+なので今回の結論は、
+
+category が Category 型だと決まっているから .temple と省略できる。
+省略しないなら Category.temple と書ける。
+
+です。かなりいいところ見てます。これはSwiftの「型推論」と「enumの省略記法」の話。
+
+**自分の理解：**
+
+既に型を決めていて良いと思った。
+型を決めておくことで省略できて楽になると思うが、
+省略しない丁寧な書き方、説明用としてはわかりにくさもあると感じた。
+
 ## 今日の質問を振り返って
 
 座標の質問はとても良かったと思う。

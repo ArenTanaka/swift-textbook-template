@@ -2,7 +2,7 @@
 
 ## 使用した生成AIツール
 
-Gemini 試行モード
+Gemini 思考モード,chat gpt plus(5.5 thinking)
 
 ## 質問と回答の記録
 

@@ -320,14 +320,62 @@ struct Landmark: Identifiable, Hashable {
 ### マーカーの表示
 
 ```swift
-// 該当部分のコードを抜粋して貼る
+// MARK: - サンプルデータ
+
+extension Landmark {
+    static let sampleData: [Landmark] = [
+        Landmark(
+            name: "浅草寺",
+            description: "東京都内最古の寺院。雷門が有名。",
+            coordinate: CLLocationCoordinate2D(latitude: 35.7148, longitude: 139.7967),
+            category: .temple
+        ),
+        Landmark(
+            name: "東京タワー",
+            description: "1958年に完成した高さ333mの電波塔。",
+            coordinate: CLLocationCoordinate2D(latitude: 35.6586, longitude: 139.7454),
+            category: .tower
+        ),
+        Landmark(
+            name: "東京スカイツリー",
+            description: "高さ634mの世界一高い自立式電波塔。",
+            coordinate: CLLocationCoordinate2D(latitude: 35.7101, longitude: 139.8107),
+            category: .tower
+        ),
+        Landmark(
+            name: "明治神宮",
+            description: "明治天皇と昭憲皇太后を祀る神社。",
+            coordinate: CLLocationCoordinate2D(latitude: 35.6764, longitude: 139.6993),
+            category: .temple
+        ),
+        Landmark(
+            name: "上野恩賜公園",
+            description: "美術館や動物園がある広大な公園。",
+            coordinate: CLLocationCoordinate2D(latitude: 35.7146, longitude: 139.7732),
+            category: .park
+        ),
+        Landmark(
+            name: "新宿御苑",
+            description: "都心にある広さ58.3ヘクタールの庭園。",
+            coordinate: CLLocationCoordinate2D(latitude: 35.6852, longitude: 139.7100),
+            category: .park
+        ),
+    ]
+}
 ```
 
 **何をしているか：**
 
+<ins>Landmark</ins>を定義することで、場所の名前、説明文、座標、カテゴリを定義している。
+
 **なぜこう書くのか：**
 
+categoryはCategory型なので、 <ins>.temple</ins>のように省略して書くことができる
+
 **もしこう書かなかったら：**
+
+省略せずに書く場合は、次のように書く。
+<ins>category: Category.temple</ins>
 
 ---
 

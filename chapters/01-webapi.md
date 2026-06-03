@@ -359,13 +359,19 @@ let urlString = "https://itunes.apple.com/search?term=\(encodedText)&media=music
 ## AIに聞いて特に理解が深まった質問 TOP3
 
 1. **質問：**
+   ```swift
+    guard let encodedText = searchText.addingPercentEncoding(  
+        withAllowedCharacters: .urlQueryAllowed
+       )
+   ```
+   は、見つけたものを探すものですか？
+   
    **得られた理解：**
 
-2. **質問：**
-   **得られた理解：**
+   URLとして扱えるように「％」へ変換！
+   エラー制御における文字の変換を　　　　　
 
-3. **質問：**
-   **得られた理解：**
+
 
 ## この章のまとめ
 

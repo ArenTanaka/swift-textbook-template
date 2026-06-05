@@ -2,20 +2,56 @@
 
 ## 使用した生成AIツール
 
-（例：ChatGPT 無料版 / Claude 無料版 / Gemini など）
+Chat GPT 5.5Thinking
 
 ## 質問と回答の記録
 
 ### Q1
 
 **質問：**
-（生成AIに聞いた質問をそのまま書く）
+
+```swift
+    @ViewBuilder
+    private var imageDisplayArea: some View {
+        if let image = selectedImage {
+            image
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(maxHeight: 400)
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .shadow(radius: 4)
+                .padding()
+        
+        } else {
+            RoundedRectangle(cornerRadius: 16)
+                .fill(.gray.opacity(0.1))
+                .frame(height: 300)
+                .overlay {
+                    VStack(spacing: 8) {
+                        Image(systemName: "photo")
+                            .font(.system(size: 48))
+                            .foregroundStyle(.gray)
+                        Text("写真を選択または撮影してください")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                .padding()
+        }
+      
+    }
+```
+
+は画像が選ばれてる間は画像をこのサイズに当てはめるて
+選ばれてない時はデフォルト設定（灰色背景、写真のsystemicon,写真を選択または撮影してくださいを表示でいい？
 
 **AIの回答の要点：**
-（長い回答の場合、要点だけ自分の言葉でまとめる）
+
+説明としては、**画像が選択されている場合は、その画像を縦横比を保ったまま最大高さ400で表示する。画像が選択されていない場合は、薄い灰色の背景に写真アイコンと案内文を表示する。**が一番きれい。
 
 **自分の理解：**
-（回答を受けて自分がどう理解したか。納得できたか、さらに疑問が生まれたか）
+
+ほぼ認識に間違いはなかったが<ins>当てはめる</ins>というより,画像の<ins>比率を保ったまま</ins>最大高さ400以内で表示する。
 
 ### Q2
 

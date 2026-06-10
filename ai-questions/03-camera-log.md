@@ -111,6 +111,8 @@ let data = item.loadTransferable(...)
 
 <hr>
 
+#### do-catchの意味
+
 失敗する可能性のある場所をエラーが起きても実行できる様に安全に処理する設計。
 
 失敗に原因の例：
@@ -128,8 +130,6 @@ let data = item.loadTransferable(...)
 * データ取得成功 → if の中へ
 * データ取得失敗(throw) → catchへ
 * エラーはないけど data が nil → if に入らず終了
-
-
 
 **自分の理解：**
 

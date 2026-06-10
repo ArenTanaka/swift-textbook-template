@@ -59,7 +59,59 @@ Chat GPT 5.5Thinking
 
 **質問：**
 
+```swift
+func loadImage(from item: PhotosPickerItem?) async {
+        // 非同期されてる??
+        guard let item = item else { return }
+
+        do {
+            if let data = try await item.loadTransferable(type: Data.self),
+               let uiImage = UIImage(data: data) {
+                selectedImage = Image(uiImage: uiImage)
+            }
+            // do catch
+            
+        } catch {
+            print("画像の読み込みに失敗: \(error.localizedDescription)")
+            // えらーしょり
+        }
+        
+        
+    }
+```
+>ここでのアシンク（非同期処理??）は何を意図してるの??
+
+>下のdo-catchのdoは画像があって読み込み成功ならそのまま配置
+>catchはそのままなかったらエラーと表示なんだろうけど
+
 **AIの回答の要点：**
+
+#### asyncの意味
+
+今回であれば
+
+```swift
+try await item.loadTransferable(type: Data.self)
+```
+で、PhotosPickerItem から画像データを取得する処理は、
+
+* 写真ライブラリから読み込む
+* iCloud上にあるならダウンロードする
+* データへ変換する
+
+など時間がかかる可能性がある。
+
+同期処理の場合
+```swift
+let data = item.loadTransferable(...)
+```
+となるが、データ取得するまで画面が止まる可能性があるから。
+
+<ins>async</ins>は「処理が終わるまで待つが、その間他の動きをしても良い」と、いう動き。
+
+<hr>
+
+
 
 **自分の理解：**
 

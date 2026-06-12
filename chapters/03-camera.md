@@ -247,6 +247,10 @@ struct CameraView: UIViewControllerRepresentable {
 
 **何をしているか：**
 
+asyncは、今回の場合PhotosPickerItemで画像データを取得するのに時間がかかる。同期ではない場合データ取得までに時間がかかるので「その他の動き」ができるようにしている。
+
+do-catchは
+
 **なぜこう書くのか：**
 
 **もしこう書かなかったら：**
@@ -365,8 +369,8 @@ struct CameraView: UIViewControllerRepresentable {
 
 | 項目 | 説明 | 使用例 |
 |------|------|--------|
-| 例：`PhotosPicker` | フォトライブラリから画像を選択するコンポーネント | `PhotosPicker(selection: $selectedItem, matching: .images)` |
-| 例：`UIImagePickerController` | カメラまたはフォトライブラリにアクセスするUIKitコンポーネント | `picker.sourceType = .camera` |
+| `async` | 非同期処理 | `PoadImage(from item: PhotosPickerItem?) async { guard let item = item else { return }` |
+| `do-catch` | 失敗する可能性のある場所をエラーが起きても実行できる様に安全に処理する設計 | `do{ if (略） } catch { (エラー処理）{ ` |
 | | | |
 | | | |
 | | | |

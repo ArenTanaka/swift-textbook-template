@@ -180,7 +180,19 @@ struct CameraView: UIViewControllerRepresentable {
 
 **このアプリは何をするものか：**
 
-（アプリの動作を自分の言葉で説明する。スクリーンショットを貼ってもよい。）
+カメラを用いて撮影、画像フォルダから画像の挿入
+
+<img width="120" height="260" alt="Simulator Screenshot - iPhone 17 Pro - 2026-06-17 at 14 04 43" src="https://github.com/user-attachments/assets/6c29cb06-df0c-42c1-87b1-7647ea4984cb" />
+
+<img width="120" height="260" alt="Simulator Screenshot - iPhone 17 Pro - 2026-06-17 at 14 04 49" src="https://github.com/user-attachments/assets/e97d3fbc-b3ef-48ae-9c1e-555cc96854d7" />
+
+<img width="120" height="260" alt="Simulator Screenshot - iPhone 17 Pro - 2026-06-17 at 14 04 43" src="https://github.com/user-attachments/assets/9b2e2460-a19c-42c0-b8d3-c1fbb96fcf6b" />
+
+<img width="120" height="260" alt="Simulator Screenshot - iPhone 17 Pro - 2026-06-17 at 14 04 51" src="https://github.com/user-attachments/assets/d5b505ca-d0d5-4164-b5c6-5efd8f6d3232" />
+
+
+
+
 
 ## コードの詳細解説
 

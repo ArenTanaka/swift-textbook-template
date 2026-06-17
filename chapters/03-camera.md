@@ -326,9 +326,13 @@ struct CameraView: UIViewControllerRepresentable {
 
 **何をしているか：**
 
+カメラの呼び出し
+
 **なぜこう書くのか：**
 
 **もしこう書かなかったら：**
+
+カメラ撮影できない
 
 ---
 

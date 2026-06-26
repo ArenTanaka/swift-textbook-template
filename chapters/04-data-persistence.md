@@ -361,7 +361,38 @@ struct MemoAddView: View {
 ### @AppStorageによる設定保存
 
 ```swift
-// 該当部分のコードを抜粋して貼る
+// MARK: - 設定画面（AppStorageの活用）
+
+struct SettingsView: View {
+    @Binding var userName: String
+    @Binding var sortByFavorite: Bool
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section("ユーザー設定") {
+                    TextField("あなたの名前", text: $userName)
+                }
+                Section("表示設定") {
+                    Toggle("お気に入りを上に表示", isOn: $sortByFavorite)
+                }
+                Section {
+                    Text("設定はアプリを閉じても保存されます")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
+            .navigationTitle("設定")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("完了") { dismiss() }
+                }
+            }
+        }
+    }
+}
 ```
 
 **何をしているか：**

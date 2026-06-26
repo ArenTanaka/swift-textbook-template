@@ -135,6 +135,106 @@ else 側の List が表示される
 ifはメモがない画面でdefault表示している。
 elseでは追加したメモを表示し並べている。
 
+### Q4
+
+**質問：**
+
+```swift
+// MARK: - 設定画面（AppStorageの活用）
+
+struct SettingsView: View {
+    @Binding var userName: String
+    @Binding var sortByFavorite: Bool
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section("ユーザー設定") {
+                    TextField("あなたの名前", text: $userName)
+                }
+                Section("表示設定") {
+                    Toggle("お気に入りを上に表示", isOn: $sortByFavorite)
+                }
+                Section {
+                    Text("設定はアプリを閉じても保存されます")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
+            .navigationTitle("設定")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("完了") { dismiss() }
+                }
+            }
+        }
+    }
+}
+```
+これはswiftUIのAppStorageの活用ですが、
+ここでのAppStrageは、ユーザー名の設定でしか使われてませんか??
+
+**AIの回答の要点：**
+
+AppStorage はユーザー名だけでなく、お気に入りを上に表示する設定にも使われている可能性が高い。
+
+ただし、このコードだけでは AppStorage がどこに使われているかは確定できない。
+
+この画面では @Binding で受け取っているだけなので、保存処理は親View側の 
+@AppStorage が担当している、という認識でOK。
+
+**自分の理解：**
+
+お気に入り登録でも使われているのは盲点であった。
+親Viewありきのここであるのをしっかり把握し上でAppStorageのことを確認したい。
+
+### Q5
+
+**質問：**
+
+AppStorageは宣言するだけで使えるものであって
+特別にどこかで呼び出したりするものではないんですか??
+
+**AIの回答の要点：**
+
+```swift
+@AppStorage
+```
+は「保存機能付きの変数」 です。
+
+特別に「保存しろ！」と呼び出さずに、
+
+その変数の中身を変えたら勝手に保存されるもの
+
+
+**自分の理解：**
+
+### Q5
+
+**質問：**
+
+**AIの回答の要点：**
+
+**自分の理解：**
+
+### Q6
+
+**質問：**
+
+**AIの回答の要点：**
+
+**自分の理解：**
+
+### Q7
+
+**質問：**
+
+**AIの回答の要点：**
+
+**自分の理解：**
+
 ## 今日の質問を振り返って
 
 （どんな質問が良い質問だったか。生成AIの回答で間違いや不正確な部分はあったか。次回はどんな質問をしてみたいか。）

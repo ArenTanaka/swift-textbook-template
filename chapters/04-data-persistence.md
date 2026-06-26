@@ -283,20 +283,57 @@ class Memo {
 ```
 
 **何をしているか：**
-（この部分が果たしている役割を説明する）
+
+モデルの宣言
 
 **なぜこう書くのか：**
-（別の書き方ではなく、この書き方が選ばれている理由を説明する）
+
+宣言をしないと使用ができない
 
 **もしこう書かなかったら：**
-（この部分を省略したり変えたりすると何が起きるか。実際に試した結果があればここに書く）
+
+開始の宣言がないのでそもそも始まらない
 
 ---
 
 ### データの追加・削除（modelContext）
 
 ```swift
-// 該当部分のコードを抜粋して貼る
+struct MemoAddView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
+    @State private var title = ""
+    @State private var content = ""
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section("タイトル") {
+                    TextField("メモのタイトル", text: $title)
+                }
+                Section("内容") {
+                    TextEditor(text: $content)
+                        .frame(minHeight: 200)
+                }
+            }
+            .navigationTitle("新しいメモ")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("キャンセル") { dismiss() }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("保存") {
+                        let memo = Memo(title: title, content: content)
+                        modelContext.insert(memo)
+                        dismiss()
+                    }
+                    .disabled(title.isEmpty)
+                }
+            }
+        }
+    }
+}
 ```
 
 **何をしているか：**

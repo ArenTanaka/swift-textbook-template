@@ -261,6 +261,9 @@ struct SettingsView: View {
 
 **このアプリは何をするものか：**
 
+メモをするアプリ。
+DBなどを用いずにAppStorageでアプリ内に保存する。
+
 ## コードの詳細解説
 
 ### SwiftDataモデル（@Model）

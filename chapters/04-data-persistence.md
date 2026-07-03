@@ -463,8 +463,21 @@ if memo.isFavorite {
 
 **実験2：**
 - やったこと：
+改変前
+```swift
+.navigationTitle(userName.isEmpty ? "メモ帳" : "\(userName)のメモ帳")
+```
+改変後
+```swift
+.navigationTitle(userName.isEmpty ? "メモ帳\(memos.count)件" : "\(userName)のメモ帳\(memos.count)件")
+```
+
 - 結果：
+実験位置と同じく視認性が向上した。
+また、件数が増えた際に何件あるかわかると便利である
+
 - わかったこと：
+保存されているメモ数を表示することで、現在の記録量を視覚的に把握できるようにした。
 
 ## AIに聞いて特に理解が深まった質問 TOP3
 

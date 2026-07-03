@@ -439,8 +439,27 @@ AppStorageとの連携を行うため
 
 **実験1：**
 - やったこと：
+
+変更前
+```swift
+if memo.isFavorite {
+                Image(systemName: "star.fill")
+                    .foregroundStyle(.yellow)
+            }
+```
+変更後
+```swift
+if memo.isFavorite {
+                Text("神メモ")
+                Image(systemName: "star.fill")
+                    .foregroundStyle(.yellow)
+            }
+```
 - 結果：
+  視覚的に星（お気に入りマーク）だけでなく文字でもわかるようになり視認性が向上した。
+  
 - わかったこと：
+視認性が上がるとUser Experienceの向上に繋がりとても良かった。
 
 **実験2：**
 - やったこと：

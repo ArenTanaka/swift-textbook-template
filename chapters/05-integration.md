@@ -364,7 +364,35 @@ struct RecordDetailView: View {
 ### データモデルの設計
 
 ```swift
-// 該当部分のコードを抜粋して貼る
+// MARK: - データモデル
+
+@Model
+class PhotoRecord {
+    var title: String
+    var memo: String
+    var latitude: Double
+    var longitude: Double
+    var imageData: Data?
+    var createdAt: Date
+
+    init(title: String, memo: String = "", latitude: Double, longitude: Double, imageData: Data? = nil) {
+        self.title = title
+        self.memo = memo
+        self.latitude = latitude
+        self.longitude = longitude
+        self.imageData = imageData
+        self.createdAt = .now
+    }
+
+    var coordinate: CLLocationCoordinate2D {
+        CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    }
+
+    var uiImage: UIImage? {
+        guard let data = imageData else { return nil }
+        return UIImage(data: data)
+    }
+}
 ```
 
 **何をしているか：**
@@ -381,7 +409,127 @@ struct RecordDetailView: View {
 ### タブ構成の設計
 
 ```swift
-// 該当部分のコードを抜粋して貼る
+// MARK: - メインビュー（タブ構成）
+
+struct ContentView: View {
+    var body: some View {
+        TabView {
+            MapTab()
+                .tabItem {
+                    Label("マップ", systemImage: "map")
+                }
+
+            ListTab()
+                .tabItem {
+                    Label("一覧", systemImage: "list.bullet")
+                }
+        }
+    }
+}
+
+// MARK: - マップタブ
+
+struct MapTab: View {
+    @Environment(\.modelContext) private var modelContext
+    @Query private var records: [PhotoRecord]
+    @State private var locationManager = LocationManager()
+    @State private var cameraPosition: MapCameraPosition = .automatic
+    @State private var isShowingAddSheet = false
+    @State private var selectedRecord: PhotoRecord?
+
+    var body: some View {
+        NavigationStack {
+            ZStack(alignment: .bottomTrailing) {
+                Map(position: $cameraPosition) {
+                    UserAnnotation()
+
+                    ForEach(records) { record in
+                        Annotation(record.title, coordinate: record.coordinate) {
+                            Button {
+                                selectedRecord = record
+                            } label: {
+                                if let uiImage = record.uiImage {
+                                    Image(uiImage: uiImage)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 40, height: 40)
+                                        .clipShape(Circle())
+                                        .overlay(Circle().stroke(.white, lineWidth: 2))
+                                        .shadow(radius: 2)
+                                } else {
+                                    Image(systemName: "photo.circle.fill")
+                                        .font(.title)
+                                        .foregroundStyle(.blue)
+                                }
+                            }
+                        }
+                    }
+                }
+                .mapControls {
+                    MapUserLocationButton()
+                }
+
+                // 追加ボタン
+                Button {
+                    isShowingAddSheet = true
+                } label: {
+                    Image(systemName: "plus.circle.fill")
+                        .font(.system(size: 56))
+                        .foregroundStyle(.blue)
+                        .background(Circle().fill(.white))
+                        .shadow(radius: 4)
+                }
+                .padding(24)
+            }
+            .navigationTitle("フォトマップ")
+            .sheet(isPresented: $isShowingAddSheet) {
+                AddRecordView(locationManager: locationManager)
+            }
+            .sheet(item: $selectedRecord) { record in
+                RecordDetailView(record: record)
+            }
+        }
+    }
+}
+
+// MARK: - 一覧タブ
+
+struct ListTab: View {
+    @Environment(\.modelContext) private var modelContext
+    @Query(sort: \PhotoRecord.createdAt, order: .reverse) private var records: [PhotoRecord]
+
+    var body: some View {
+        NavigationStack {
+            List {
+                ForEach(records) { record in
+                    HStack(spacing: 12) {
+                        if let uiImage = record.uiImage {
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 50, height: 50)
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                        }
+
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(record.title)
+                                .font(.headline)
+                            Text(record.createdAt, style: .date)
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                }
+                .onDelete { offsets in
+                    for index in offsets {
+                        modelContext.delete(records[index])
+                    }
+                }
+            }
+            .navigationTitle("記録一覧")
+        }
+    }
+}
 ```
 
 **何をしているか：**

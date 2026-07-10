@@ -78,12 +78,14 @@ NavigationStack {
 ```swift
 .disabled(title.isEmpty || locationManager.currentLocation == nil)
 ```
+
 保存ボタンは、次のどちらかに当てはまると押せなくなる。
 
 ```swift
 title.isEmpty
 ```
 タイトルが未入力。
+
 ```swift
 locationManager.currentLocation == nil
 ```

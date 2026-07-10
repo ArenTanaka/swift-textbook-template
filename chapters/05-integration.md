@@ -625,14 +625,31 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
 ### SwiftDataでの画像保存
 
 ```swift
-// 該当部分のコードを抜粋して貼る
+let record = PhotoRecord(
+    title: title,
+    memo: memo,
+    latitude: location.latitude,
+    longitude: location.longitude,
+    imageData: selectedImageData
+)
+
+modelContext.insert(record)
 ```
 
 **何をしているか：**
 
+選択した画像を Data 型として PhotoRecord に保存している。
+@Model を付けることで、画像データを含む記録をSwiftDataで保存できるようにしている。
+
 **なぜこう書くのか：**
 
+SwiftDataでは、画像をそのまま UIImage として保存するより、Data 型に変換して保存する方が扱いやすいため。
+保存後は、UIImage(data:) を使って画面表示用の画像に戻している。
+
 **もしこう書かなかったら：**
+
+画像をデータとして保存できず、アプリを閉じたあとに写真を復元できなくなる。
+また、画像表示のたびに保存形式と表示形式の変換が必要になる。
 
 ---
 

@@ -671,8 +671,27 @@ SwiftDataでは、画像をそのまま UIImage として保存するより、Da
 
 **実験1：**
 - やったこと：
+
+変更前
+```swift
+ .disabled(title.isEmpty || locationManager.currentLocation == nil)
+```
+
+変更後
+```swift
+.disabled(
+    title.isEmpty ||
+    selectedImageData == nil ||
+    locationManager.currentLocation == nil
+)
+```
+
 - 結果：
+画像なしでは保存（登録）できなくなった。
+
 - わかったこと：
+場所をメッセージだけで登録するのであれば、
+画像も一緒に登録するべきなので登録できるように変更した方がよかった。
 
 **実験2：**
 - やったこと：

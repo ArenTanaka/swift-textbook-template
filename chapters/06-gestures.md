@@ -351,7 +351,48 @@ struct CombinedDemoView: View {
 
 **このアプリは何をするものか：**
 
-（アプリの動作を自分の言葉で説明する。スクリーンショットを貼ってもよい。）
+画面タップしていろいろする
+
+### タップとロングプレス
+>
+<img width="180" height="393" alt="Simulator Screenshot - iPhone 17 Pro - 2026-07-17 at 15 54 56" src="https://github.com/user-attachments/assets/42a5c454-0d88-4afc-b028-ef7dd35193fa" />
+
+<img width="180" height="393" alt="swift_github_up" src="https://github.com/user-attachments/assets/088fc6f9-7a27-4fc3-91c9-92b51cbc312e" />
+
+### ドラッグ
+
+<img width="180" height="393" alt="Simulator Screenshot - iPhone 17 Pro - 2026-07-17 at 15 56 28" src="https://github.com/user-attachments/assets/d591aa80-60b0-4c2d-8968-63d465064e79" />
+
+<img width="180" height="393" alt="Simulator Screenshot - iPhone 17 Pro - 2026-07-17 at 15 56 31" src="https://github.com/user-attachments/assets/37b4f139-b429-4aab-bc38-03033c01cff4" />
+
+<img width="180" height="393" alt="Simulator Screenshot - iPhone 17 Pro - 2026-07-17 at 15 56 38" src="https://github.com/user-attachments/assets/a2907bdd-9000-4159-af6d-c09bdf335925" />
+
+### ピンチ（拡大縮小）
+
+<img width="180" height="393" alt="Simulator Screenshot - iPhone 17 Pro - 2026-07-17 at 15 56 43" src="https://github.com/user-attachments/assets/92d3a351-12ea-4b36-969f-b5a9a29002ed" />
+
+<img width="180" height="393" alt="Simulator Screenshot - iPhone 17 Pro - 2026-07-17 at 15 56 51" src="https://github.com/user-attachments/assets/e0364ab7-d3b0-447c-bde6-5ce9799a15dd" />
+
+<img width="180" height="393" alt="Simulator Screenshot - iPhone 17 Pro - 2026-07-17 at 15 56 57" src="https://github.com/user-attachments/assets/6b8a4919-226a-41ea-9558-f24d6eed2299" />
+
+### 回転
+
+<img width="180" height="393" alt="Simulator Screenshot - iPhone 17 Pro - 2026-07-17 at 15 57 02" src="https://github.com/user-attachments/assets/487ea667-9c62-4408-9175-8bfe3dbe998e" />
+
+<img width="180" height="393" alt="Simulator Screenshot - iPhone 17 Pro - 2026-07-17 at 15 57 09" src="https://github.com/user-attachments/assets/8b0ef7ca-9fbd-42dd-95c9-ed0ffcac86ad" />
+
+<img width="180" height="393" alt="Simulator Screenshot - iPhone 17 Pro - 2026-07-17 at 15 57 11" src="https://github.com/user-attachments/assets/92a7bc28-2917-4675-9885-63ed84e2f91d" />
+
+### 組み合わせ
+
+
+<img width="180" height="393" alt="Simulator Screenshot - iPhone 17 Pro - 2026-07-17 at 15 57 23" src="https://github.com/user-attachments/assets/a01a8a6b-247a-4078-8e0d-a3fff214c13a" />
+
+<img width="180" height="393" alt="Simulator Screenshot - iPhone 17 Pro - 2026-07-17 at 15 57 20" src="https://github.com/user-attachments/assets/60d5efbe-9bc0-42dd-a318-7e8043f7f003" />
+
+<img width="180" height="393" alt="Simulator Screenshot - iPhone 17 Pro - 2026-07-17 at 15 57 17" src="https://github.com/user-attachments/assets/0e87f73a-4b32-4fc6-95a8-f73ca115ad6e" />
+
+
 
 ## コードの詳細解説
 

@@ -2,17 +2,55 @@
 
 ## 使用した生成AIツール
 
-（例：ChatGPT 無料版 / Claude 無料版 / Gemini など）
+ChatGPT5.5 Thinking
 
 ## 質問と回答の記録
 
 ### Q1
 
 **質問：**
-（生成AIに聞いた質問をそのまま書く）
+
+DragGestureについて詳しく教えて
 
 **AIの回答の要点：**
-（長い回答の場合、要点だけ自分の言葉でまとめる）
+
+DragGestureは、画面上で指やマウスを押したまま動かす「ドラッグ操作」を検知するためのジェスチャー
+
+これだけでドラッグ操作を受け取る準備ができますが、通常は次の2つを組み合わせて使います。
+
+```swift
+DragGesture()
+    .onChanged { value in
+        // ドラッグ中の処理
+    }
+    .onEnded { value in
+        // ドラッグ終了時の処理
+    }
+```
+
+**.onChanged**
+指が動いている間、繰り返し実行
+
+```swift
+.onChanged { value in
+    offset = value.translation
+}
+```
+指の移動量を取得して、ビューを指の動きに合わせて動かすために使う。
+
+**.onEnded**
+指を画面から離したときに、一度だけ実行
+
+```swift
+.onEnded { _ in
+    lastOffset = offset
+}
+```
+
+ドラッグ後の位置を保存したり、元の位置に戻したりするために使う
+
+onChanged＝ドラッグ中の処理
+onEnded＝ドラッグ終了後の処理
 
 **自分の理解：**
 （回答を受けて自分がどう理解したか。納得できたか、さらに疑問が生まれたか）

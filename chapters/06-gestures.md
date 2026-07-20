@@ -777,9 +777,21 @@ struct CombinedDemoView: View {
 
 **何をしているか：**
 
+画像をドラッグして移動したり、2本指のピンチ操作で拡大・縮小したり、2本指で回転させたりできるようにしている。
+それぞれの操作終了時の位置・倍率・角度を保存するため、次の操作でも現在の状態から続けて動かせる。
+「リセット」ボタンを押すと、位置・大きさ・角度がすべて元の状態に戻る。
+
 **なぜこう書くのか：**
 
+DragGesture、MagnifyGesture、RotateGestureを組み合わせることで、1つの画像に複数の操作を設定するため。
+また、.simultaneousGestureを使うことで、ドラッグ・拡大縮小・回転を同時に認識できるようにしている。
+さらに、lastOffset、lastScale、lastAngleに操作後の状態を保存することで、操作をやり直しても現在の状態から続けられる。
+
 **もしこう書かなかったら：**
+
+画像を移動・拡大縮小・回転できなくなる。
+また、.simultaneousGestureを使わずに複数の.gestureを設定すると、一部のジェスチャーが正しく反応しない場合がある。
+操作後の状態を保存しない場合は、操作をやり直すたびに位置・大きさ・角度の基準が元に戻り、不自然な動きになる。
 
 ---
 
@@ -789,11 +801,11 @@ struct CombinedDemoView: View {
 
 | 項目 | 説明 | 使用例 |
 |------|------|--------|
-| 例：`DragGesture` | ドラッグジェスチャーを認識するジェスチャーレコグナイザー | `.gesture(DragGesture().onChanged { ... })` |
-| 例：`MagnificationGesture` | ピンチジェスチャーで拡大・縮小を認識 | `.gesture(MagnificationGesture().onChanged { scale in ... })` |
-| | | |
-| | | |
-| | | |
+| DragGesture | 指やマウスで押したまま動かす、ドラッグ操作を検知する。| `DragGesture()　.onChanged { value in　offset = value.translation　}` |
+| MagnifyGesture | 2本指を広げたり縮めたりする、ピンチ操作を検知する。 | `MagnifyGesture()　.onChanged { value in　scale = value.magnification　}` |
+| RotateGesture | 2本指をひねる、回転操作を検知する。 | `RotateGesture() .onChanged { value in angle = value.rotation }` |
+| startLocation | ドラッグを開始した位置を取得する。 | `DragGesture() .onEnded { value in print(value.startLocation) }` |
+| predictedEndTranslation | ドラッグの速さや方向から、どこまで移動しそうかを予測する。 | `DragGesture()　.onEnded { value in offset = value.predictedEndTranslation }` |
 
 ## 自分の実験メモ
 

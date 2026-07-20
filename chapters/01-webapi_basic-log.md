@@ -369,8 +369,7 @@ let urlString = "https://itunes.apple.com/search?term=\(encodedText)&media=music
    **得られた理解：**
 
    URLとして扱えるように「％」へ変換！
-   エラー制御における文字の変換を　　　　　
-
+   エラー制御における文字の変換を行なっている
 
 
 ## この章のまとめ

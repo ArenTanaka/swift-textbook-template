@@ -195,6 +195,12 @@ struct ContentView: View {
 
 **このアプリは何をするものか：**
 
+<img width="180" height="393" alt="Simulator Screenshot - iPhone 17 Pro - 2026-07-20 at 23 00 33" src="https://github.com/user-attachments/assets/c831a0e9-6477-4960-b2c3-e98799573be4" />
+<img width="180" height="393" alt="Simulator Screenshot - iPhone 17 Pro - 2026-07-20 at 23 00 30" src="https://github.com/user-attachments/assets/dbef5829-7521-4b1f-a254-e8128c72ae9f" />
+<img width="180" height="393" alt="Simulator Screenshot - iPhone 17 Pro - 2026-07-20 at 23 00 27" src="https://github.com/user-attachments/assets/38c8e859-b38b-425a-af89-7467726e6bb8" />
+<img width="180" height="393" alt="Simulator Screenshot - iPhone 17 Pro - 2026-07-20 at 23 00 24" src="https://github.com/user-attachments/assets/003db1bc-47d5-4314-9309-29528a270b3b" />
+
+
 
 
 ## コードの詳細解説

@@ -25,7 +25,7 @@
 | 第2章 | 地図アプリの基本 | [chapters/02-map_basic.md](chapters/02-map_basic.md) | ✅ 完了 |
 | 第2章 | 地図アプリの応用 | [chapters/02-map_advanced.md](chapters/02-map_advanced.md) | ✅ 完了 |
 | 第3章 | カメラの利用 | [chapters/03-camera_basic.md](chapters/03-camera_basic.md) |  ✅ 完了 |
-| 第3章 | カメラの応用 | [chapters/03-camera_advanced.md](chapters/03-camera_advanced.md) | 着手中 |
+| 第3章 | カメラの応用 | [chapters/03-camera_advanced.md](chapters/03-camera_advanced.md) | ✅ 完了 |
 | 第4章 | データの永続化 | [chapters/04-data-persistence.md](chapters/04-data-persistence.md) | ✅ 完了 |
 | 第5章 | 機能統合の実践 | [chapters/05-integration.md](chapters/05-integration.md) | ✅ 完了 |
 | 第6章 | ジェスチャー操作 | [chapters/06-gestures_basic.md](chapters/06-gestures_basic.md) | ✅ 完了 |

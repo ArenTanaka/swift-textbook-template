@@ -29,7 +29,7 @@
 | 第4章 | データの永続化 | [chapters/04-data-persistence.md](chapters/04-data-persistence.md) | ✅ 完了 |
 | 第5章 | 機能統合の実践 | [chapters/05-integration.md](chapters/05-integration.md) | ✅ 完了 |
 | 第6章 | ジェスチャー操作 | [chapters/06-gestures_basic.md](chapters/06-gestures_basic.md) | ✅ 完了 |
-| 第6章 | ジェスチャー応用 | [chapters/06-gestures_advanced.md](chapters/06-gestures_advanced.md) | 着手中 |
+| 第6章 | ジェスチャー応用 | [chapters/06-gestures_advanced.md](chapters/06-gestures_advanced.md) | ✅ 完了 |
 | 第7章 | センサーの活用 | [chapters/07-sensors_basic.md](chapters/07-sensors_basic.md) | 未着手 |
 | 第7章 | センサーの応用 | [chapters/07-senser_advanced.md](chapters/07-senser_advanced.md) | 未着手 |
 | 第8章 | ウィジェット | [chapters/08-widgets.md](chapters/08-widgets.md) | 未着手 |
